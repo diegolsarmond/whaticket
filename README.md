@@ -28,6 +28,8 @@ https://www.netcup.com/en/?ref=257888
 
 🚨 Atenção: 
 
+Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
+
 Estamos mudando a forma como lhe damos com o Whaticket.
 
 A Partir de agora disponibilizamos o acesso pago à versão mais atualizada, enquanto manteremos um diretório público e gratuito com uma versão um pouco mais defasada.
