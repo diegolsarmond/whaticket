@@ -125,6 +125,13 @@ Instalador atualizado, versao NodeJS 20:
 ```
 https://github.com/launcherbr/instalador.git
 ```
+
+Arquivos para gerar imagem docker:
+
+```
+https://github.com/launcherbr/whaticketdocker
+```
+
 Notas Rápidas: </br>
 Requer servidor Ubuntu 20.04 LTS com ao menos 4 vcore e 8gb de ram.</br>
 Recomendamos Peramix, Contabo, e Hetzner</br>
