@@ -14,9 +14,7 @@ STANDARD: 6 vCores, 12 GB de RAM e 200 GB de SSD NVMe $9.99 USD Mensal com taxa 
 
 Utilize o cupom WHATICKET e obtenha 25% de desconto no primeiro pagamento.
 
-```
 https://control.peramix.com/?affid=14
-```
 
 VPS 1000 G11: 4 vCores, 8 GB de RAM e 256 GB de SSD NVMe €5.75 Mensal.
 
