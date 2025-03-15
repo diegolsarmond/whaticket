@@ -123,7 +123,7 @@ Recomendamos Peramix, Contabo, e Hetzner</br>
 Não recomendamos Hostinger, Hostgator e Locaweb.</br>
 Evite latencia muito baixa e muito alta (servidor local e servidores na Europa)</br>
 
-Siga o arquivo de Instruções para instalação:
+Siga o arquivo de Instruções para instalação:</br>
 https://drive.google.com/drive/folders/1KfRvnsT7YF3Vj5ROXGS3ZsIdfWjV1023?usp=sharing
 
 Confira no pdf aqui como gerar um webhook de retorno automático de pagamento da Efi.</br>
