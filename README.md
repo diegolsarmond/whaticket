@@ -22,9 +22,7 @@ VPS 1000 G11: 4 vCores, 8 GB de RAM e 256 GB de SSD NVMe €5.75 Mensal.
 
 VPS 2000 G11: 8 vCores, 16 GB de RAM e 512 GB de SSD NVMe €12.60 USD Mensal.
 
-```
 https://www.netcup.com/en/?ref=257888
-```
 
 🚨 Atenção: 
 
@@ -37,25 +35,18 @@ A Partir de agora disponibilizamos o acesso pago à versão mais atualizada, enq
 Para adquirir a versão 5.5.0 acesse uma das opções de checkou a seguir:
 
 InfinityPay:
-```
 https://loja.infinitepay.io/launcher-tecnologia/aep0253-script-crm-whaticket-gold-com-saas-e-kanba
-```
 
 Kirvano:
-```
 https://pay.kirvano.com/a5103244-08d5-418f-8221-7172849dd65f
-```
 
 DFG:
-```
 https://www.dfg.com.br/pt/outros/script-crm-whaticket-gold-com-saas-e-kanban-inclusos-939289065
-```
 
 Você deve ter um usuário do Github e juntar-se à nossa organização para acesso ao diretório privado com a última versão, você receberá também as credencias do Github para instalação, usuário e token. 
 O acesso é vitalício, as credencias são periodicamente renovadas, você sempre terá a informação das novas.
 
 ⚠️ Este diretório é uma cortesia da Launcher & Co. se você pagou por este acesso, foi enganado, recomendamos solicitar o estorno no seu cartão de crédito ou no seu banco.
-
 
 📅 13/12/2024 – Versão 5.5.0 = Versão Paga
 
@@ -122,15 +113,11 @@ V 6.7.16
 
 Instalador atualizado, versao NodeJS 20:
 
-```
 https://github.com/launcherbr/instalador.git
-```
 
 Arquivos para gerar imagem docker:
 
-```
 https://github.com/launcherbr/whaticketdocker
-```
 
 Notas Rápidas: </br>
 Requer servidor Ubuntu 20.04 LTS com ao menos 4 vcore e 8gb de ram.</br>
@@ -139,15 +126,10 @@ Não recomendamos Hostinger, Hostgator e Locaweb.</br>
 Evite latencia muito baixa e muito alta (servidor local e servidores na Europa)</br>
 
 Siga o arquivo de Instruções para instalação:
-
-```
 https://drive.google.com/drive/folders/1KfRvnsT7YF3Vj5ROXGS3ZsIdfWjV1023?usp=sharing
-```
 
 Confira no pdf aqui como gerar um webhook de retorno automático de pagamento da Efi.
-
-```
 https://drive.google.com/file/d/1Kjd-9NurK-7gw7_22-uIsZoB0MZ74YFp/view?usp=drive_link
-```
+
 Personalizações:</br>
 As instruções para alteração de cores, logo, icones e nome da instalação estão no arquivo de instruções.
