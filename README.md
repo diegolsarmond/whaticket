@@ -22,6 +22,22 @@ VPS 2000 G11: 8 vCores, 16 GB de RAM e 512 GB de SSD NVMe €12.60 USD Mensal.
 
 https://www.netcup.com/en/?ref=257888
 
+Voucher de 5 euros:
+
+```
+36nc17424834870
+```
+
+```
+36nc17415489990
+```
+```
+36nc17424834870
+```
+```
+36nc17415489990
+```
+
 🚨 Atenção: 
 
 Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
