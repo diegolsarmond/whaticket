@@ -38,15 +38,11 @@ Voucher de 5 euros:
 36nc17415489990
 ```
 
-🚨 Atenção: 
-
 Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
 
-Estamos mudando a forma como lhe damos com o Whaticket.
+🚨 Atenção: 
 
-A Partir de agora disponibilizamos o acesso pago à versão mais atualizada, enquanto manteremos um diretório público e gratuito com uma versão um pouco mais defasada.
-
-Para adquirir a versão 5.5.0 acesse uma das opções de checkou a seguir:
+Para adquirir a versão mais atualizada 5.5.0 e ter acesso a outras versões que são vendidas no mercado como bônus, acesse uma das opções de checkout a seguir:
 
 InfinityPay:
 https://loja.infinitepay.io/launcher-tecnologia/aep0253-script-crm-whaticket-gold-com-saas-e-kanba
