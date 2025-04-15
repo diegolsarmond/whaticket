@@ -29,7 +29,7 @@ import ModalImageCors from "../ModalImageCors";
 import MessageOptionsMenu from "../MessageOptionsMenu";
 import whatsBackground from "../../assets/wa-background.png";
 import LocationPreview from "../LocationPreview";
-import whatsBackgroundDark from "../../assets/wa-background-dark.png"; //DARK MODE PLW DESIGN//
+import whatsBackgroundDark from "../../assets/wa-background-dark.png"; //DARK MODE//
 import VCardPreview from "../VCardPreview";
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
@@ -37,9 +37,6 @@ import { SocketContext } from "../../context/Socket/SocketContext";
 import { ForwardMessageContext } from "../../context/ForwarMessage/ForwardMessageContext";
 import { ReplyMessageContext } from "../../context/ReplyingMessage/ReplyingMessageContext";
 import SelectMessageCheckbox from "./SelectMessageCheckbox";
-
-import { Mutex } from "async-mutex";
-const loadPageMutex = new Mutex();
 
 const useStyles = makeStyles((theme) => ({
   messagesListWrapper: {
@@ -54,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   messagesList: {
-    backgroundImage: theme.mode === 'light' ? `url(${whatsBackground})` : `url(${whatsBackgroundDark})`, //DARK MODE PLW DESIGN//
+    backgroundImage: theme.mode === 'light' ? `url(${whatsBackground})` : `url(${whatsBackgroundDark})`, //DARK MODE//
     display: "flex",
     flexDirection: "column",
     flexGrow: 1,
@@ -71,7 +68,14 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     marginTop: 12,
   },
-
+  relationContainer: {
+    marginTop: -10,
+    paddingTop: 5, 
+    fontSize: "12px", 
+    color: "#666", 
+    display: "block", 
+    textAlign: "left",
+  },
   messageLeft: {
     marginRight: 20,
     marginTop: 2,
@@ -100,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 5,
     paddingBottom: 0,
     boxShadow: "0 1px 1px #b3b3b3",
-    transition: 'background-color 0.5s ease-in-out',
   },
 
   quotedContainerLeft: {
@@ -110,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "7.5px",
     display: "flex",
     position: "relative",
-    cursor: "pointer",
   },
 
   quotedMsg: {
@@ -284,112 +286,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "inherit",
     padding: 10,
   },
- '@global': {
-    '@keyframes wave': {
-      '0%, 60%, 100%': {
-        transform: 'initial',
-      },
-      '30%': {
-        transform: 'translateY(-15px)',
-      },
-    },
-    '@keyframes quiet': {
-      '25%': {
-        transform: 'scaleY(.6)'
-      },
-      '50%': {
-        transform: 'scaleY(.4)',
-      },
-      '75%': {
-        transform: 'scaleY(.8)',
-      }
-    },
-    '@keyframes normal': {
-      '25%': {
-        transform: 'scaleY(.1)'
-      },
-      '50%': {
-        transform: 'scaleY(.4)',
-      },
-      '75%': {
-        transform: 'scaleY(.6)',
-      }
-    },
-    '@keyframes loud': {
-      '25%': {
-        transform: 'scaleY(1)'
-      },
-      '50%': {
-        transform: 'scaleY(.4)',
-      },
-      '75%': {
-        transform: 'scaleY(1.2)',
-      }
-    },
-  },
-  wave: {
-    position: 'relative',
-    textAlign: 'center',
-    height: "30px",
-    marginTop: "10px",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  dot: {
-    display: "inline-block",
-    width: "7px",
-    height: "7px",
-    borderRadius: "50%",
-    marginRight: "3px",
-    background: theme.mode === 'light' ? "#303030" : "#ffffff",
-    animation: "wave 1.3s linear infinite",
-    "&:nth-child(2)": {
-      animationDelay: "-1.1s",
-    },
-    "&:nth-child(3)": {
-      animationDelay: "-0.9s",
-    }
-  },
-
-  wavebarsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    height: "30px",
-    marginTop: "5px",
-    marginBottom: "5px",
-    marginLeft: "auto",
-    marginRight: "auto",
-    "--boxSize": "5px",
-    "--gutter": "4px",
-    width: "calc((var(--boxSize) + var(--gutter)) * 5)",
-  },
-
-  wavebars: {
-    transform: "scaleY(.4)",
-    height: "100%",
-    width: "var(--boxSize)",
-    animationDuration: "1.2s",
-    backgroundColor: theme.mode === 'light' ? "#303030" : "#ffffff",
-    animationTimingFunction: 'ease-in-out',
-    animationIterationCount: 'infinite',
-    borderRadius: '8px',
-  },
-
-  wavebar1: {
-    animationName: 'quiet'
-  },
-  wavebar2: {
-    animationName: 'normal'
-  },
-  wavebar3: {
-    animationName: 'quiet'
-  },
-  wavebar4: {
-    animationName: 'loud'
-  },
-  wavebar5: {
-    animationName: 'quiet'
-  }  
 }));
 
 const reducer = (state, action) => {
@@ -446,8 +342,6 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(false);
   const lastMessageRef = useRef();
-  const scrollRef = useRef();
-    const [contactPresence, setContactPresence] = useState("available");
 
   const [selectedMessage, setSelectedMessage] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
@@ -458,15 +352,21 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
   const { setReplyingMessage } = useContext(ReplyMessageContext);
   const { showSelectMessageCheckbox } = useContext(ForwardMessageContext);
 
-  function loadData(incrementPage = false) {
+  useEffect(() => {
+    dispatch({ type: "RESET" });
+    setPageNumber(1);
+
+    currentTicketId.current = ticketId;
+  }, [ticketId]);
+
+  useEffect(() => {
     setLoading(true);
-    const thisPageNumber = incrementPage ? pageNumber + 1 : 1;
     const delayDebounceFn = setTimeout(() => {
       const fetchMessages = async () => {
         if (ticketId === undefined) return;
         try {
           const { data } = await api.get("/messages/" + ticketId, {
-            params: { pageNumber: thisPageNumber },
+            params: { pageNumber },
           });
 
           if (currentTicketId.current === ticketId) {
@@ -484,24 +384,11 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
         }
       };
       fetchMessages();
-      setPageNumber(thisPageNumber);
     }, 500);
     return () => {
       clearTimeout(delayDebounceFn);
     };
-  }
-
-
-  useEffect(async () => {
-    dispatch({ type: "RESET" });
-
-    currentTicketId.current = ticketId;
-    
-    await loadPageMutex.runExclusive(async () => {
-      loadData();
-    });
-  }, [ticketId]);
-
+  }, [pageNumber, ticketId]);
 
   useEffect(() => {
     const companyId = localStorage.getItem("companyId");
@@ -519,22 +406,14 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
         dispatch({ type: "UPDATE_MESSAGE", payload: data.message });
       }
     });
-	
-	    socket.on(`company-${companyId}-contact`, (data) => {
-      if (data?.contact?.id === ticket.contact.id && data.action === "update") {
-        setContactPresence(data?.contact?.presence || "available");
-      }
-    });
 
     return () => {
       socket.disconnect();
     };
   }, [ticketId, ticket, socketManager]);
 
-  const loadMore = async () => {
-    await loadPageMutex.runExclusive(async () => {
-      loadData(true);
-    });
+  const loadMore = () => {
+    setPageNumber((prevPageNumber) => prevPageNumber + 1);
   };
 
   const scrollToBottom = () => {
@@ -591,61 +470,24 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
       return <LocationPreview image={imageLocation} link={linkLocation} description={descriptionLocation} />
     } else
   
-      if (message.mediaType === "contactMessage") {
-        let array = message.body.split("\n");
-        let obj = [];
-        let contact = "";
-        for (let index = 0; index < array.length; index++) {
-          const v = array[index];
-          let values = v.split(":");
-          for (let ind = 0; ind < values.length; ind++) {
-            if (values[ind].indexOf("+") !== -1) {
-              obj.push({ number: values[ind] });
-            }
-            if (values[ind].indexOf("FN") !== -1) {
-              contact = values[ind + 1];
-            }
+    if (message.mediaType === "contactMessage") {
+      let array = message.body.split("\n");
+      let obj = [];
+      let contact = "";
+      for (let index = 0; index < array.length; index++) {
+        const v = array[index];
+        let values = v.split(":");
+        for (let ind = 0; ind < values.length; ind++) {
+          if (values[ind].indexOf("+") !== -1) {
+            obj.push({ number: values[ind] });
+          }
+          if (values[ind].indexOf("FN") !== -1) {
+            contact = values[ind + 1];
           }
         }
-        // console.log(message)
-        return <VCardPreview contact={contact} numbers={obj[0].number} />
       }
-      /* else if (message.mediaType === "vcard") {
-        let array = message.body.split("\n");
-        let obj = [];
-        let contact = "";
-        for (let index = 0; index < array.length; index++) {
-          const v = array[index];
-          let values = v.split(":");
-          for (let ind = 0; ind < values.length; ind++) {
-            if (values[ind].indexOf("+") !== -1) {
-              obj.push({ number: values[ind] });
-            }
-            if (values[ind].indexOf("FN") !== -1) {
-              contact = values[ind + 1];
-            }
-          }
-        }
-        return <VcardPreview contact={contact} numbers={obj[0].number} />
-      } */
-      /*else if (message.mediaType === "multi_vcard") {
-        console.log("multi_vcard")
-        console.log(message)
-        
-        if(message.body !== null && message.body !== "") {
-          let newBody = JSON.parse(message.body)
-          return (
-            <>
-              {
-              newBody.map(v => (
-                <VcardPreview contact={v.name} numbers={v.number} />
-              ))
-              }
-            </>
-          )
-        } else return (<></>)
-      }*/        
-      else
+      return <VCardPreview contact={contact} numbers={obj[0].number} />
+    } else
   
         if (message.mediaType === "image") {
           return <ModalImageCors imageUrl={message.mediaUrl} />;
@@ -801,15 +643,13 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
   };
 
   const renderQuotedMessage = (message) => {
-    
     return (
       <div
         className={clsx(classes.quotedContainerLeft, {
           [classes.quotedContainerRight]: message.fromMe,
         })}
       >
-        
-      <span
+        <span
           className={clsx(classes.quotedSideColorLeft, {
             [classes.quotedSideColorRight]: message.quotedMsg?.fromMe,
           })}
@@ -971,33 +811,47 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
                     </MarkdownWrapper>
                   )}
                   {message.quotedMsg && message.mediaType === "reactionMessage" && message.body && (
-                    <>
-                      <span style={{ marginLeft: "0px", display: 'flex', alignItems: 'center' }}>
-                        <MarkdownWrapper>
-                          {"_*" + (message.fromMe ? 'Você' : (message?.contact?.name ?? 'Contato')) + "*_ reagiu... "}
-                        </MarkdownWrapper>
-                        <Badge 
-                          className={classes.badge}
-                          overlap="circular"
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                          }}
-                          badgeContent={
-                            <span style={{ fontSize: "1.2em", marginTop: "0", marginLeft: "5px" }}>
-                              {message.body}
-                            </span>
-                          }
-                        >
-                        </Badge>
-                      </span>
-                    </>
-                  )}
+							  <>
+								<span style={{ marginLeft: "0px", display: 'flex', alignItems: 'center' }}>
+								  <MarkdownWrapper>
+									{"_*" + (message.fromMe ? 'Você' : (message?.contact?.name ?? 'Contato')) + "*_ reagiu... "}
+								  </MarkdownWrapper>
+								  <Badge 
+									className={classes.badge}
+									overlap="circular"
+									anchorOrigin={{
+									  vertical: 'bottom',
+									  horizontal: 'right',
+									}}
+									badgeContent={
+									  <span style={{ fontSize: "1.2em", marginTop: "0", marginLeft: "5px" }}>
+										{message.body}
+									  </span>
+									}
+								  >
+								  </Badge>
+								</span>
 
-                   <span className={classes.timestamp}>
-                  {message.isEdited ? "Editada " + format(parseISO(message.createdAt), "HH:mm") : format(parseISO(message.createdAt), "HH:mm")}
-                    </span>
+								{/* Adicionando relação abaixo da mensagem */}
+								{message.relation && (
+								  <div style={{
+									marginTop: "-5px", 
+									paddingTop: "2px", 
+									fontSize: "12px", 
+									color: "#666", 
+									display: "block", 
+									textAlign: "left"
+								  }}>
+									{message.relation}
+								  </div>
+								)}
+							  </>
+							)}
 
+                                  
+                  <span className={classes.timestamp}>
+                    {format(parseISO(message.createdAt), "HH:mm")}
+                  </span>
                 </div>
               </div>
             </React.Fragment>
@@ -1056,35 +910,47 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
                   {message.mediaType !== "reactionMessage" && message.mediaType !== "locationMessage" && (
                     <MarkdownWrapper>{message.body}</MarkdownWrapper>
                   )}
-                  {message.quotedMsg && message.mediaType === "reactionMessage" && message.body && (
-                    <>
-                      <span style={{ marginLeft: "0px", display: 'flex', alignItems: 'center' }}>
-                        <MarkdownWrapper>
-                          {"_*" + (message.fromMe ? 'Você' : (message?.contact?.name ?? 'Contato')) + "*_ reagiu... "}
-                        </MarkdownWrapper>
-                        <Badge 
-                          className={classes.badge}
-                          overlap="circular"
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                          }}
-                          badgeContent={
-                            <span style={{ fontSize: "1.2em", marginTop: "0", marginLeft: "5px" }}>
-                              {message.body}
-                            </span>
-                          }
-                        >
-                        </Badge>
-                      </span>
-                    </>
-                  )}
-                  
-                
+					{message.quotedMsg && message.mediaType === "reactionMessage" && message.body && (
+					  <>
+						<span style={{ marginLeft: "0px", display: 'flex', alignItems: 'center' }}>
+						  <MarkdownWrapper>
+							{"_*" + (message.fromMe ? 'Você' : (message?.contact?.name ?? 'Contato')) + "*_ reagiu... "}
+						  </MarkdownWrapper>
+						  <Badge 
+							className={classes.badge}
+							overlap="circular"
+							anchorOrigin={{
+							  vertical: 'bottom',
+							  horizontal: 'right',
+							}}
+							badgeContent={
+							  <span style={{ fontSize: "1.2em", marginTop: "0", marginLeft: "5px" }}>
+								{message.body}
+							  </span>
+							}
+						  >
+						  </Badge>
+						</span>
+
+						{/* Exibição da relação abaixo */}
+						{message.relation && (
+						  <div style={{
+							marginTop: "3px",
+							fontSize: "12px",
+							color: "#666",
+							textAlign: "left",
+							display: "block"
+						  }}>
+							{message.relation}
+						  </div>
+						)}
+					  </>
+					)}
+                          
                   <span className={classes.timestamp}>
-                  {message.isEdited ? "Editada " + format(parseISO(message.createdAt), "HH:mm") : format(parseISO(message.createdAt), "HH:mm")}
-                  {renderMessageAck(message)}
-                </span>
+                    {format(parseISO(message.createdAt), "HH:mm")}
+                    {renderMessageAck(message)}
+                  </span>
                 </div>
               </div>
             </React.Fragment>
@@ -1110,28 +976,8 @@ const MessagesList = ({ ticket, ticketId, isGroup }) => {
         className={classes.messagesList}
         onScroll={handleScroll}
       >
-      {messagesList.length > 0 ? renderMessages() : []}
-      {contactPresence === "composing" && (
-        <div className={classes.messageLeft}>
-          <div className={classes.wave}>
-              <span className={classes.dot}></span>
-              <span className={classes.dot}></span>
-              <span className={classes.dot}></span>
-          </div>
-        </div>
-      )}
-      {contactPresence === "recording" && (
-        <div className={classes.messageLeft}>
-          <div className={classes.wavebarsContainer}>
-              <div className={clsx(classes.wavebars, classes.wavebar1)}></div>
-              <div className={clsx(classes.wavebars, classes.wavebar2)}></div>
-              <div className={clsx(classes.wavebars, classes.wavebar3)}></div>
-              <div className={clsx(classes.wavebars, classes.wavebar4)}></div>
-              <div className={clsx(classes.wavebars, classes.wavebar5)}></div>
-          </div>
-        </div>
-      )}
-    </div>
+        {messagesList.length > 0 ? renderMessages() : []}
+      </div>
       {loading && (
         <div>
           <CircularProgress className={classes.circleLoading} />

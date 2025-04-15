@@ -191,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   }
 }));
-  {/*PLW DESIGN INSERIDO O dentro do const handleChangeTab*/}
+  {/*INSERIDO O dentro do const handleChangeTab*/}
   const TicketListItemCustom = ({ ticket }) => {
   const classes = useStyles();
   const history = useHistory();
@@ -238,7 +238,6 @@ const useStyles = makeStyles((theme) => ({
     try {
       await api.put(`/tickets/${id}`, {
         status: "closed",
-		justClose: true,
         userId: user?.id,
         queueId: ticket?.queue?.id,
         useIntegration: false,

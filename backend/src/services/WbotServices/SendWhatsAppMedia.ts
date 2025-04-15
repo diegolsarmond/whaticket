@@ -129,54 +129,56 @@ const SendWhatsAppMedia = async ({
 }: Request): Promise<WAMessage> => {
   try {
     const wbot = await GetTicketWbot(ticket);
-	const companyId = ticket.companyId.toString();
+    const companyId = ticket.companyId.toString();
 
     const pathMedia = media.path;
-    const typeMessage = media.mimetype.split("/")[0];
+    const mimeType = media.mimetype;
+    const typeMessage = mimeType.split("/")[0];
     let options: AnyMessageContent;
-    const bodyMessage = formatBody(body, ticket.contact)
+    const bodyMessage = formatBody(body, ticket.contact);
 
     if (typeMessage === "video") {
       options = {
         video: fs.readFileSync(pathMedia),
-        caption: body,
+        caption: bodyMessage,
         fileName: media.originalname.replace('/', '-')
-        // gifPlayback: true
       };
     } else if (typeMessage === "audio") {
-      const typeAudio = media.originalname.includes("audio-record-site");
-      if (typeAudio) {
-        const convert = await processAudio(media.path, companyId);
+      // Verifica se o arquivo já é OGG
+      if (mimeType === "audio/ogg") {
         options = {
-          audio: fs.readFileSync(convert),
-          mimetype: typeAudio ? "audio/mp4" : media.mimetype,
-          ptt: true
+          audio: fs.readFileSync(pathMedia),
+          mimetype: "audio/ogg; codecs=opus",
+          ptt: true // Define como push-to-talk
         };
       } else {
-        const convert = await processAudioFile(media.path, companyId);
+        // Converte para OGG se não for
+        const convert = await processAudio(pathMedia, companyId);
         options = {
           audio: fs.readFileSync(convert),
-          mimetype: typeAudio ? "audio/mp4" : media.mimetype
+          mimetype: "audio/ogg; codecs=opus",
+          ptt: true
         };
       }
-    } else if (typeMessage === "document" || typeMessage === "text") {
+    } else if (typeMessage === "document" || mimeType === "application/pdf") {
       options = {
         document: fs.readFileSync(pathMedia),
-        caption: body,
+        caption: bodyMessage,
         fileName: media.originalname.replace('/', '-'),
         mimetype: media.mimetype
       };
-    } else if (typeMessage === "application") {
-      options = {
-        document: fs.readFileSync(pathMedia),
-        caption: body,
-        fileName: media.originalname.replace('/', '-'),
-        mimetype: media.mimetype
-      };
-    } else {
+    } else if (typeMessage === "image") {
       options = {
         image: fs.readFileSync(pathMedia),
-        caption: body
+        caption: bodyMessage
+      };
+    } else {
+      // Caso o tipo de mídia não seja reconhecido, trata como documento
+      options = {
+        document: fs.readFileSync(pathMedia),
+        caption: bodyMessage,
+        fileName: media.originalname.replace('/', '-'),
+        mimetype: media.mimetype
       };
     }
 

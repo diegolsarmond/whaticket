@@ -190,6 +190,15 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const { colorMode } = useContext(ColorModeContext);
   const greaterThenSm = useMediaQuery(theme.breakpoints.up("sm"));
 
+  // Definindo os logos para modo claro e escuro
+  const logoLight = `${process.env.REACT_APP_BACKEND_URL}/public/logotipos/interno.png`;
+  const logoDark = `${process.env.REACT_APP_BACKEND_URL}/public/logotipos/logo_w.png`;
+
+  // Definindo o logo inicial com base no modo de tema atual
+  const initialLogo = theme.palette.type === 'light' ? logoLight : logoDark;
+  const [logoImg, setLogoImg] = useState(initialLogo);
+
+
   const [volume, setVolume] = useState(localStorage.getItem("volume") || 1);
 
   const { dateToClient } = useDate();
@@ -251,7 +260,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   }, []);
 
   useEffect(() => {
-    if (document.body.offsetWidth < 600) {
+    if (document.body.offsetWidth < 1000) {
       setDrawerVariant("temporary");
     } else {
       setDrawerVariant("permanent");
@@ -322,18 +331,20 @@ const LoggedInLayout = ({ children, themeToggle }) => {
     }
   };
 
+  useEffect(() => {
+    // Atualiza o logo sempre que o modo do tema muda
+    setLogoImg(theme.palette.type === 'light' ? logoLight : logoDark);
+  }, [theme.palette.type]);
+
   const toggleColorMode = () => {
     colorMode.toggleColorMode();
-  }
+    setLogoImg((prevLogo) => (prevLogo === logoLight ? logoDark : logoLight));
+  };
 
   if (loading) {
     return <BackdropLoading />;
   }
-  
-  	const logo = `${process.env.REACT_APP_BACKEND_URL}/public/logotipos/interno.png`;
-    const randomValue = Math.random(); // Generate a random number
-  
-    const logoWithRandom = `${logo}?r=${randomValue}`;
+
 
   return (
     <div className={classes.root}>
@@ -349,7 +360,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-          <img src={logoWithRandom} style={{ margin: "0 auto" , width: "50%"}} alt={`${process.env.REACT_APP_NAME_SYSTEM}`} />
+          <img src={`${logoImg}?r=${Math.random()}`} style={{ margin: "0 auto" , width: "50%"}} alt={`${process.env.REACT_APP_NAME_SYSTEM}`} />
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <ChevronLeftIcon />
           </IconButton>

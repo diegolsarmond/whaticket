@@ -716,49 +716,43 @@ async function handleDispatchCampaign(job) {
 
     const chatId = `${campaignShipping.number}@s.whatsapp.net`;
 
-    let body = campaignShipping.message;
-
     if (campaign.confirmation && campaignShipping.confirmation === null) {
-      body = campaignShipping.confirmationMessage
-    }
+      await wbot.sendMessage(chatId, {
+        text: campaignShipping.confirmationMessage
+      });
+      await campaignShipping.update({ confirmationRequestedAt: moment() });
+    } else {
+      await wbot.sendMessage(chatId, {
+        text: campaignShipping.message
+      });
 
-    if (!isNil(campaign.fileListId)) {
-      try {
-        const publicFolder = path.resolve(__dirname, "..", "public");
-        const files = await ShowFileService(campaign.fileListId, campaign.companyId)
-        const folder = path.resolve(publicFolder, "fileList", String(files.id))
-        for (const [index, file] of files.options.entries()) {
-          const options = await getMessageOptions(file.path, path.resolve(folder, file.path), file.name);
+      if (!isNil(campaign.fileListId)) {
+        try {
+          const publicFolder = path.resolve(__dirname, "..", "public", `company${campaign.companyId}`);
+          const files = await ShowFileService(campaign.fileListId, campaign.companyId);
+          const folder = path.resolve(publicFolder, "fileList", String(files.id));
+      
+          for (const [index, file] of files.options.entries()) {
+            const options = await getMessageOptions(file.path, path.resolve(folder, file.path), file.name);
+            await wbot.sendMessage(chatId, { ...options });
+          }
+        } finally {
+          // Caso precise executar alguma ação independentemente de erro
+        }
+      }
+      
+
+      if (campaign.mediaPath) {
+        //const filePath = path.resolve("public", campaign.mediaPath);
+        const filePath = path.resolve(`public/company${campaign.companyId}`, campaign.mediaPath);
+        //const options = await getMessageOptions(campaign.mediaName, filePath);
+        const options = await getMessageOptions(campaign.mediaName, filePath);
+        if (Object.keys(options).length) {
           await wbot.sendMessage(chatId, { ...options });
-        };
-      } catch (error) {
-        logger.info(error);
+        }
       }
+      await campaignShipping.update({ deliveredAt: moment() });
     }
-
-    if (campaign.mediaPath) {
-            const publicFolder = path.resolve(__dirname, "..", "public");
-            const filePath = path.join(publicFolder, `company${campaign.companyId}`, campaign.mediaPath);
-
-      const options = await getMessageOptions(campaign.mediaName, filePath, body);
-      if (Object.keys(options).length) {
-        await wbot.sendMessage(chatId, { ...options });
-      }
-    }
-    else {
-      if (campaign.confirmation && campaignShipping.confirmation === null) {
-        await wbot.sendMessage(chatId, {
-          text: body
-        });
-        await campaignShipping.update({ confirmationRequestedAt: moment() });
-      } else {
-
-        await wbot.sendMessage(chatId, {
-          text: body
-        });
-      }
-    }
-    await campaignShipping.update({ deliveredAt: moment() });
 
     await verifyAndFinalizeCampaign(campaign);
 

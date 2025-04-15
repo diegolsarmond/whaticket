@@ -1,5 +1,9 @@
 # WhaTicket Versão Saas com Módulo Kanban, Modo Noturno e as seguintes integrações:</br>
 
+Baseado no Whaticket Gold da PLW Designer
+
+Distribuido por Launcher & Co.
+
 🗣️ DialogFlow</br>
 🔄 N8N</br>
 🌐 WebHooks</br>
@@ -14,7 +18,9 @@ STANDARD: 6 vCores, 12 GB de RAM e 200 GB de SSD NVMe $9.99 USD Mensal com taxa 
 
 Utilize o cupom WHATICKET e obtenha 25% de desconto no primeiro pagamento.
 
+```
 https://control.peramix.com/?affid=14
+```
 
 VPS 1000 G11: 4 vCores, 8 GB de RAM e 256 GB de SSD NVMe €5.75 Mensal.
 
@@ -58,7 +64,9 @@ O acesso é vitalício, as credencias são periodicamente renovadas, você sempr
 
 ⚠️ Este diretório é uma cortesia da Launcher & Co. se você pagou por este acesso, foi enganado, recomendamos solicitar o estorno no seu cartão de crédito ou no seu banco.
 
-📅 13/12/2024 – Versão 5.5.0 = Versão Paga
+📅 15/04/2025 – Versão 6.0.0 - Versão Paga, disponivel em Breve!!!
+
+📅 13/12/2024 – Versão 5.5.0
 
 🛠️ Correção ao redimensionar área de ticket</br>
 ✅ Validação de número no ContactModal</br>
@@ -95,27 +103,6 @@ O acesso é vitalício, as credencias são periodicamente renovadas, você sempr
 🔄 API atualizada. </br>
 🆕 Novo layout da página de login. </br>
 💬 Indicação “Digitando” ou “Gravando” aparece no ticket, no canto inferior direito, ao lado do nome. </br>
-
-24/07/2024 – Versão 5.0.0 = Gratuita
-
-🛠️ Fizemos correção no Vcard </br>
-🔄 Função de habilitar e desabilitar novos registros</br>
-⏳ Tempo de Trial disponível no Painel</br>
-⚡ Respostas rápidas visualizadas por todos os usuários</br>
-📞 Contatos agora aparece se é um número ok e o horário da última interação</br>
-👀 Agora é possível ver o número que está conectado no Whaticket</br>
-🔄 Botão para reiniciar conexões adicionado</br>
-🎨 Alterar logo pelo Painel</br>
-🆕 Adicionado nova ABA Cadastrar Empresa</br>
-📋 Add Opção Plano Interno</br>
-
-Caso queira fazer uma contribuição, serei muito grato.</br>
-Chave Pix, aleatória:
-
-```
-efd3110c-e572-42b5-a6cb-5984a8811ad2
-```
-</br>
 
 Biblioteca Baileys Atualizada:</br>
 

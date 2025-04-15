@@ -33,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
   },
   tab: {
-    backgroundColor: theme.palette.options,  //DARK MODE PLW DESIGN//
+    backgroundColor: theme.palette.options,  //DARK MODE//
     borderRadius: 4,
     width: "100%",
     "& .MuiTab-wrapper": {
       color: theme.palette.fontecor,
-    },   //DARK MODE PLW DESIGN//
+    },   //DARK MODE//
     "& .MuiTabs-flexContainer": {
       justifyContent: "center"
     }
@@ -194,12 +194,12 @@ export default function Options(props) {
         setviewgroups(viewgroups.value);
       }
       
-	  {/*PLW DESIGN SAUDAÇÃO*/}
+	  {/*SAUDAÇÃO*/}
       const SendGreetingAccepted = settings.find((s) => s.key === "sendGreetingAccepted");
       if (SendGreetingAccepted) {
         setSendGreetingAccepted(SendGreetingAccepted.value);
       }	 
-	  {/*PLW DESIGN SAUDAÇÃO*/}	 
+	  {/*SAUDAÇÃO*/}	 
 	  
 	  {/*TRANSFERIR TICKET*/}	
 	  const SettingsTransfTicket = settings.find((s) => s.key === "sendMsgTransfTicket");
@@ -347,7 +347,7 @@ export default function Options(props) {
       key: "scheduleType",
       value,
     });
-    //toast.success("Oraçãpeo atualizada com sucesso.");
+    //toast.success("Opção atualizada com sucesso.");
     toast.success('Operação atualizada com sucesso.', {
       position: "top-right",
       autoClose: 2000,

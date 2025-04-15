@@ -3,18 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "start": "nodemon dist/server.js",
-    "dev:server": "ts-node-dev --respawn --transpile-only --ignore node_modules src/server.ts",
-    "db:migrate": "npx sequelize db:migrate",
-    "db:seed": "sequelize db:seed:all",
-    "pretest": "NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
-    "test": "NODE_ENV=test jest",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "lint": "eslint src/**/*.ts"
-  },
+		"scripts": {
+		  "build": "tsc --sourceMap false",
+		  "devbuild": "tsc --sourceMap true",
+		  "watch": "tsc -w",
+		  "start": "node --max-old-space-size=8096 dist/server.js",
+		  "dev": "tsc-watch --onSuccess \"node --max-old-space-size=8096 --trace-warnings ./dist/server.js\"",
+		  "dev:server": "node --max-old-space-size=8096 -r ts-node/register src/server.ts",
+		  "db:migrate": "npx sequelize db:migrate",
+		  "db:seed": "sequelize db:seed:all",
+		  "pretest": "NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
+		  "test": "NODE_ENV=test jest",
+		  "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
+		  "lint": "eslint src/**/*.ts"
+		},
   "author": "",
   "license": "MIT",
   "dependencies": {
