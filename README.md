@@ -48,7 +48,7 @@ Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
 
 🚨 Atenção: 
 
-Para adquirir a versão mais atualizada 5.5.0 e ter acesso a outras versões que são vendidas no mercado como bônus, acesse uma das opções de checkout a seguir:
+Para adquirir a versão mais atualizada 6.0.0 (DISPONÍVEL EM BREVE!!!!0 e ter acesso a outras versões que são vendidas no mercado como bônus, acesse uma das opções de checkout a seguir:
 
 InfinityPay:
 https://loja.infinitepay.io/launcher-tecnologia/aep0253-script-crm-whaticket-gold-com-saas-e-kanba
