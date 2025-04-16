@@ -64,7 +64,25 @@ Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
 
 ⚠️ Este diretório é uma cortesia da Launcher & Co. se você pagou por este acesso, foi enganado, recomendamos solicitar o estorno no seu cartão de crédito ou no seu banco.
 
-📅 15/04/2025 – Versão 6.0.0 - Versão Paga, disponivel em Breve!!!
+📅 16/04/2025 – Versão 6.0.0 - Versão Paga
+
+🌑 Correções no Darkmode (dentro das mensagens)  
+🔄 Botão Light/Dark movido (está no perfil)  
+📊 Estilos dos cards da Dashboard alterados (removido botão de impressão)  
+🎟️ Estilo de ticket alterado  
+⚡ Respostas rápidas (layout novo)  
+📂 Correção no envio de menu (filas) – na 3ª tentativa de não escolha da fila, é enviado automaticamente para a 1ª fila  
+🌍 Botão de tradução  
+⚠️ Aviso de contato (caso o ticket esteja aberto, é emitido um aviso)  
+🔧 Página de conexão reformulada  
+👑 Adicionada opção de SuperAdmin (dentro do popup do usuário)  
+📆 Correção no agendamento (agora envia imagem com texto)  
+♻️ Agendamento reformulado (com suporte a ciclos)  
+🔐 Novo layout da tela de login  
+📝 Novo layout da tela de signup  
+🛠️ Correção de vazamento no WebSocket
+
+Espero que os emojis ajudem a organizar melhor as informações! Caso precise de mais alterações, é só me falar. 😊
 
 📅 13/12/2024 – Versão 5.5.0
 
