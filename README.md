@@ -66,21 +66,21 @@ Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
 
 📅 16/04/2025 – Versão 6.0.0 - Versão Paga
 
-🌑 Correções no Darkmode (dentro das mensagens)  
-🔄 Botão Light/Dark movido (está no perfil)  
-📊 Estilos dos cards da Dashboard alterados (removido botão de impressão)  
-🎟️ Estilo de ticket alterado  
-⚡ Respostas rápidas (layout novo)  
-📂 Correção no envio de menu (filas) – na 3ª tentativa de não escolha da fila, é enviado automaticamente para a 1ª fila  
-🌍 Botão de tradução  
-⚠️ Aviso de contato (caso o ticket esteja aberto, é emitido um aviso)  
-🔧 Página de conexão reformulada  
-👑 Adicionada opção de SuperAdmin (dentro do popup do usuário)  
-📆 Correção no agendamento (agora envia imagem com texto)  
-♻️ Agendamento reformulado (com suporte a ciclos)  
-🔐 Novo layout da tela de login  
-📝 Novo layout da tela de signup  
-🛠️ Correção de vazamento no WebSocket
+🌑 Correções no Darkmode (dentro das mensagens)</br>
+🔄 Botão Light/Dark movido (está no perfil)</br>
+📊 Estilos dos cards da Dashboard alterados (removido botão de impressão)</br>
+🎟️ Estilo de ticket alterado</br>
+⚡ Respostas rápidas (layout novo)</br>
+📂 Correção no envio de menu (filas) – na 3ª tentativa de não escolha da fila, é enviado automaticamente para a 1ª fila</br>
+🌍 Botão de tradução</br>
+⚠️ Aviso de contato (caso o ticket esteja aberto, é emitido um aviso)</br>
+🔧 Página de conexão reformulada</br>
+👑 Adicionada opção de SuperAdmin (dentro do popup do usuário)</br>
+📆 Correção no agendamento (agora envia imagem com texto)</br>
+♻️ Agendamento reformulado (com suporte a ciclos)</br> 
+🔐 Novo layout da tela de login</br>
+📝 Novo layout da tela de signup</br>
+🛠️ Correção de vazamento no WebSocket</br>
 
 Espero que os emojis ajudem a organizar melhor as informações! Caso precise de mais alterações, é só me falar. 😊
 
