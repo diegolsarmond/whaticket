@@ -82,8 +82,6 @@ Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
 📝 Novo layout da tela de signup</br>
 🛠️ Correção de vazamento no WebSocket</br>
 
-Espero que os emojis ajudem a organizar melhor as informações! Caso precise de mais alterações, é só me falar. 😊
-
 📅 13/12/2024 – Versão 5.5.0
 
 🛠️ Correção ao redimensionar área de ticket</br>
