@@ -71,7 +71,7 @@ Arquivos para Docker em https://github.com/launcherbr/whaticketdocker
 📊 Estilos dos cards da Dashboard alterados (removido botão de impressão)</br>
 🎟️ Estilo de ticket alterado</br>
 ⚡ Respostas rápidas (layout novo)</br>
-📂 Correção no envio de menu (filas) – na 3ª tentativa de não escolha da fila, é enviado automaticamente para a 1ª fila</br>
+📂 Correção no envio de menu (filas) – na 3ª tentativa, é enviado automaticamente para a 1ª fila</br>
 🌍 Botão de tradução</br>
 ⚠️ Aviso de contato (caso o ticket esteja aberto, é emitido um aviso)</br>
 🔧 Página de conexão reformulada</br>
