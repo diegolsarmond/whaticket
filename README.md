@@ -2,6 +2,8 @@
 
 🚨 Atenção: 
 
+Promoção por tempo indeterminado: Versão Paga de R$ 70,00 por 45,00 = Pronta para Docker Stanalone e Docker Swarm.
+
 Para adquirir a versão mais atualizada 6.0.0 e ter acesso a outras versões que são vendidas no mercado como bônus, acesse uma das opções de checkout a seguir:
 
 InfinityPay:
