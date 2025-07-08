@@ -42,7 +42,7 @@ https://control.peramix.com/?affid=14
 
 VPS 1000 G11: 4 vCores, 8 GB de RAM e 256 GB de SSD NVMe €5.75 Mensal.
 
-VPS 2000 G11: 8 vCores, 16 GB de RAM e 512 GB de SSD NVMe €12.60 USD Mensal.
+VPS 2000 G11: 8 vCores, 16 GB de RAM e 512 GB de SSD NVMe €12.60 Mensal.
 
 https://www.netcup.com/en/?ref=257888
 
