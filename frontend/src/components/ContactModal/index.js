@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import InputMask from "react-input-mask";
 
 import * as Yup from "yup";
 import { Formik, FieldArray, Form, Field } from "formik";
@@ -53,6 +54,15 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
+const formatNumberForMask = number => {
+  if (!number) return "";
+  let digits = number.replace(/\D/g, "");
+  if (digits.startsWith("55")) {
+    digits = digits.slice(2);
+  }
+  return digits;
+};
+
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   
@@ -88,26 +98,33 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 		};
 	}, []);
 
-	useEffect(() => {
-		const fetchContact = async () => {
-			if (initialValues) {
-				setContact(prevState => {
-					return { ...prevState, ...initialValues };
-				});
-			}
+        useEffect(() => {
+                const fetchContact = async () => {
+                        if (initialValues) {
+                                setContact(prevState => {
+                                        return {
+                                                ...prevState,
+                                                ...initialValues,
+                                                number: formatNumberForMask(initialValues.number)
+                                        };
+                                });
+                        }
 
-			if (!contactId) return;
+                        if (!contactId) return;
 
-			try {
-				const { data } = await api.get(`/contacts/${contactId}`);
-				if (isMounted.current) {
-					console.log(data)
-					setContact(data);
-				}
-			} catch (err) {
-				toastError(err);
-			}
-		};
+                        try {
+                                const { data } = await api.get(`/contacts/${contactId}`);
+                                if (isMounted.current) {
+                                        console.log(data)
+                                        setContact({
+                                                ...data,
+                                                number: formatNumberForMask(data.number)
+                                        });
+                                }
+                        } catch (err) {
+                                toastError(err);
+                        }
+                };
 
 		fetchContact();
 	}, [contactId, open, initialValues]);
@@ -117,18 +134,26 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 		setContact(initialState);
 	};
 
-	const handleSaveContact = async values => {
-		try {
-			if (contactId) {
-				await api.put(`/contacts/${contactId}`, values);
-				handleClose();
-			} else {
-				const { data } = await api.post("/contacts", values);
-				if (onSave) {
-					onSave(data);
-				}
-				handleClose();
-			}
+        const handleSaveContact = async values => {
+                let payload = { ...values };
+                if (payload.number) {
+                        let onlyNumbers = payload.number.replace(/\D/g, "");
+                        if (!onlyNumbers.startsWith("55")) {
+                                onlyNumbers = `55${onlyNumbers}`;
+                        }
+                        payload.number = onlyNumbers;
+                }
+                try {
+                        if (contactId) {
+                                await api.put(`/contacts/${contactId}`, payload);
+                                handleClose();
+                        } else {
+                                const { data } = await api.post("/contacts", payload);
+                                if (onSave) {
+                                        onSave(data);
+                                }
+                                handleClose();
+                        }
 			toast.success(i18n.t("contactModal.success"));
 		} catch (err) {
 			toastError(err);
@@ -171,16 +196,23 @@ const ContactModal = ({ open, onClose, contactId, initialValues, onSave }) => {
 									margin="dense"
 									className={classes.textField}
 								/>
-								<Field
-									as={TextField}
-									label={i18n.t("contactModal.form.number")}
-									name="number"
-									error={touched.number && Boolean(errors.number)}
-									helperText={touched.number && errors.number}
-									placeholder="5541998608485"
-									variant="outlined"
-									margin="dense"
-								/>
+                                                                <Field
+                                                                        as={InputMask}
+                                                                        mask="(99) 99999-9999"
+                                                                        name="number"
+                                                                >
+                                                                        {({ field }) => (
+                                                                                <TextField
+                                                                                        {...field}
+                                                                                        label={i18n.t("contactModal.form.number")}
+                                                                                        error={touched.number && Boolean(errors.number)}
+                                                                                        helperText={touched.number && errors.number}
+                                                                                        placeholder="(31)99362-4545"
+                                                                                        variant="outlined"
+                                                                                        margin="dense"
+                                                                                />
+                                                                        )}
+                                                                </Field>
 								<div>
 									<Field
 										as={TextField}
